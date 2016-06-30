@@ -1,0 +1,25 @@
+---
+galaxy_info:
+  author: Pavel Stratil
+  company: Vaizard Institute
+  license: MIT
+  min_ansible_version: 2.1
+  description: Updates all packages to the latest version
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+    - name: Gentoo
+      versions:
+        - all
+    - name: Redhat
+      versions:
+        - all
+    - name: SuSE
+      versions:
+        - all
+  categories:
+    - system
+
+dependencies: []
+
