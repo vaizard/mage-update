@@ -18,6 +18,9 @@ galaxy_info:
     - name: SuSE
       versions:
         - all
+    - name: Arch
+      versions:
+        - all
   categories:
     - system
 

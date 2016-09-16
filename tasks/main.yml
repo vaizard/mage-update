@@ -1,6 +1,10 @@
 ---
-- set_fact: role_name="mage.system-update"
 
+# Arch
+
+- name: "{{ role_name }}: updating all {{ ansible_distribution }} packages"
+  pacman: update_cache=yes upgrade=yes
+  when: ansible_pkg_mgr == 'pacman'
 
 # APT (Debian, Ubuntu)
 
@@ -32,5 +36,5 @@
 
 # Fail for everyting else  
 
-- fail: msg="{{ role_name }} failed to find a supported package manager"
-  when: ansible_pkg_mgr != 'zypper' and ansible_pkg_mgr != 'apt' and ansible_pkg_mgr != 'yum' and ansible_pkg_mgr != 'portage'
+- fail: msg="Failed to find a supported package manager"
+  when: ansible_pkg_mgr != 'zypper' and ansible_pkg_mgr != 'apt' and ansible_pkg_mgr != 'yum' and ansible_pkg_mgr != 'portage'  and ansible_pkg_mgr != 'pacman'
