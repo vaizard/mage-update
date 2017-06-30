@@ -9,7 +9,7 @@
 # APT (Debian, Ubuntu)
 
 - name: "{{ role_name }}: updating all {{ ansible_distribution }} packages"
-  apt: upgrade=dist update_cache=yes
+  apt: upgrade=dist update_cache=yes cache_valid_time=3600
   when: ansible_pkg_mgr == 'apt'
   
 # YUM (Redhat, Fedora, CentOS)
