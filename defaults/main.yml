@@ -1,0 +1,7 @@
+---
+# update levels: secr (security only), safe (safe updates), deep (update packages and dependencies),  full (update everything)
+
+cache_valid_time: "3600"
+update_level: "safe"
+dep_clean: "no"
+

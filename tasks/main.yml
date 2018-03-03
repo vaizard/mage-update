@@ -1,40 +1,10 @@
 ---
 
-# Arch
-
-- name: "{{ role_name }}: updating all {{ ansible_distribution }} packages"
-  pacman: update_cache=yes upgrade=yes
-  when: ansible_pkg_mgr == 'pacman'
-
-# APT (Debian, Ubuntu)
-
-- name: "{{ role_name }}: updating all {{ ansible_distribution }} packages"
-  apt: upgrade=dist update_cache=yes cache_valid_time=3600
-  when: ansible_pkg_mgr == 'apt'
-  
-# YUM (Redhat, Fedora, CentOS)
-  
-- name: "{{ role_name }}: updating all {{ ansible_distribution }} packages"
-  yum: name=* state=latest update_cache=yes
-  when: ansible_pkg_mgr == 'yum'
-
-# ZYPPER (SuSE)
-  
-- name: "{{ role_name }}: updating all {{ ansible_distribution }} packages"
-  zypper: name=* state=latest
-  when: ansible_pkg_mgr == 'zypper'
-
-# PORTAGE (Gentoo)
-  
-- name: "{{ role_name }}: syncing layman overlays"
-  layman: name=ALL state=updated
-  when: ansible_pkg_mgr == 'portage'
-  
-- name: "{{ role_name }}: updating all {{ ansible_distribution }} packages"
-  portage: package=@world update=yes deep=yes sync=yes newuse=yes
-  when: ansible_pkg_mgr == 'portage'
-
-# Fail for everyting else  
+# Fail for unsupported package managers
 
 - fail: msg="Failed to find a supported package manager"
   when: ansible_pkg_mgr != 'zypper' and ansible_pkg_mgr != 'apt' and ansible_pkg_mgr != 'yum' and ansible_pkg_mgr != 'portage'  and ansible_pkg_mgr != 'pacman'
+
+- name: Inculude package-manager specific settings
+  include_tasks: pmngr_{{ ansible_pkg_mgr }}.yml
+

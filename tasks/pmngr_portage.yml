@@ -1,0 +1,25 @@
+---
+
+- name: "Syncing layman overlays ({{ ansible_distribution }}/{{ ansible_pkg_mgr }})."
+  layman: name=ALL state=updated
+  when: ansible_pkg_mgr == 'portage'
+
+- name: "[dep_clean] method: remove unused dependencies ({{ ansible_distribution }}/{{ ansible_pkg_mgr }})."
+  portage: "depclean=yes"
+  when: dep_clean == 'yes'
+
+- name: "[{{ update_level }}] method: not supported, using [safe] instead ({{ ansible_distribution }}/{{ ansible_pkg_mgr }})."
+  portage: "package=@world update=yes sync=yes newuse=yes"
+  when: update_level == 'secr'
+
+- name: "[{{ update_level }}] method: safe updates ({{ ansible_distribution }}/{{ ansible_pkg_mgr }})."
+  portage: "package=@world update=yes sync=yes newuse=yes"
+  when: update_level == 'safe'
+
+- name: "[{{ update_level }}] method: not supported, using [full] instead ({{ ansible_distribution }}/{{ ansible_pkg_mgr }})."
+  portage: "package=@world update=yes sync=yes newuse=yes deep=yes"
+  when: update_level == 'deep'
+
+- name: "[{{ update_level }}] method: updating everything ({{ ansible_distribution }}/{{ ansible_pkg_mgr }})."
+  portage: "package=@world update=yes sync=yes newuse=yes deep=yes"
+  when: update_level == 'full' or dep_clean == 'yes'

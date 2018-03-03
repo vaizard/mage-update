@@ -1,0 +1,19 @@
+---
+
+- name: "[{{ update_level }}] method: not supported, using [safe] instead ({{ ansible_distribution }}/{{ ansible_pkg_mgr }})."
+  apt: "upgrade=safe update_cache=yes cache_valid_time={{ cache_valid_time }} autoremove={{ dep_clean }}"
+  when: update_level == 'secr'
+
+- name: "[{{ update_level }}] method: safe updates ({{ ansible_distribution }}/{{ ansible_pkg_mgr }})."
+  apt: "upgrade=safe update_cache=yes cache_valid_time={{ cache_valid_time }} autoremove={{ dep_clean }}"
+  when: update_level == 'safe'
+
+- name: "[{{ update_level }}] method: update packages and their dependencies ({{ ansible_distribution }}/{{ ansible_pkg_mgr }})."
+  apt: "upgrade=full update_cache=yes cache_valid_time={{ cache_valid_time }} autoremove={{ dep_clean }}"
+  when: update_level == 'deep'
+
+- name: "[{{ update_level }}] method: update everything ({{ ansible_distribution }}/{{ ansible_pkg_mgr }})."
+  apt: "upgrade=full update_cache=yes cache_valid_time={{ cache_valid_time }} autoremove={{ dep_clean }}"
+  when: update_level == 'full'
+
+
