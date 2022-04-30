@@ -1,14 +1,7 @@
 ---
 
-- name: "[dep_clean] method: remove unused dependencies ({{ ansible_distribution }}/{{ ansible_pkg_mgr }})."
-  dnf: "autoremove=yes"
-  when: dep_clean == 'yes'
-
-- name: "[{{ update_level }}] method: not supported, using [full] instead ({{ ansible_distribution }}/{{ ansible_pkg_mgr }})."
-  dnf: "name=* state=latest"
-  when: update_level == 'secr' or update_level == 'safe' or update_level == 'deep'
-
-- name: "[{{ update_level }}] method: updating everything ({{ ansible_distribution }}/{{ ansible_pkg_mgr }})."
-  dnf: "name=* state=latest"
-  when: update_level == 'full'
+- name: "Update packages (DNF)"
+  ansible.builtin.dnf:
+    name: "*"
+    state: "latest"
 

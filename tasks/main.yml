@@ -2,8 +2,9 @@
 
 # Fail for unsupported package managers
 
-- fail: msg="Failed to find a supported package manager"
-  when: ansible_pkg_mgr != 'zypper' and ansible_pkg_mgr != 'apt' and ansible_pkg_mgr != 'yum' and ansible_pkg_mgr != 'portage'  and ansible_pkg_mgr != 'pacman'
+- name: Verify presence of a supported package manager
+  fail: msg="Failed to find a supported package manager"
+  when: ansible_pkg_mgr != 'apt' and ansible_pkg_mgr != 'dnf' and ansible_pkg_mgr != 'pacman'
 
 - name: Inculude package-manager specific settings
   include_tasks: pmngr_{{ ansible_pkg_mgr }}.yml

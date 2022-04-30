@@ -1,9 +1,6 @@
 ---
 
-- name: "[{{ update_level }}] method: not supported, using [full] instead ({{ ansible_distribution }}/{{ ansible_pkg_mgr }})."
-  pacman: "update_cache=yes upgrade=yes"
-  when: update_level == 'secr' or update_level == 'safe' or update_level == 'deep'
-
-- name: "[{{ update_level }}] method: updating everything ({{ ansible_distribution }}/{{ ansible_pkg_mgr }})."
-  pacman: "update_cache=yes upgrade=yes"
-  when: update_level == 'full'
+- name: "Update packages (PACMAN)"
+  community.general.pacman:
+    update_cache: yes
+    upgrade: yes
